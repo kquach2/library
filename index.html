@@ -9,6 +9,20 @@
     <script src="js-file.js" defer></script>
 </head>
 <body>
+    <div id="overlay">
+        <form onsubmit="return false" >
+            <h3>Add a new book</h3>
+            <input id="title" name="title" type="text" placeholder="Title" required>
+            <input id="author" name="author" type="text" placeholder="Author" required>
+            <input id="pages" name="pages" type="number" placeholder="Pages" required>
+            <div id="haveRead">
+                <label for="read">Have you read this book?</label>
+                <input id="read" name="read" type="checkbox">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
     <div class="container">
         <div class="header">
             <h1>Library</h1>
@@ -16,17 +30,7 @@
         <div class="midsection">
             <button type="button" id="new-book-button">+ Add Book</button>
             <div class="book-grid"></div> 
-            <form onsubmit="return false">
-                <h3>Add a new book</h3>
-                <input id="title" name="title" type="text" placeholder="Title" required>
-                <input id="author" name="author" type="text" placeholder="Author" required>
-                <input id="pages" name="pages" type="number" placeholder="Pages" required>
-                <div id="haveRead">
-                    <label for="read">Have you read this book?</label>
-                    <input id="read" name="read" type="checkbox">
-                </div>
-                <button type="submit">Submit</button>
-            </form>
+            
         </div>
     </div>
     

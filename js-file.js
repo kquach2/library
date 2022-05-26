@@ -82,10 +82,7 @@ function displayBooks() {
 }
 
 const newBookButton = document.querySelector('#new-book-button');
-newBookButton.addEventListener('click', () => {
-    const form = document.querySelector('form');
-    form.classList.toggle('active');
-});
+newBookButton.addEventListener('click', on);
 
 // when user clicks submit, book should be added to library array
 const form = document.querySelector('form');
@@ -98,4 +95,21 @@ form.addEventListener('submit', () => {
     addBookToLibrary(book);
     form.classList.toggle('active');    //hide form
     displayBooks();
+    off();
 });
+
+form.addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+
+function on() {
+    document.getElementById("overlay").style.display = "block";
+}
+
+function off() {
+    document.getElementById("overlay").style.display = "none";
+}
+
+const overlay = document.querySelector('#overlay');
+overlay.addEventListener('click', off);
+
