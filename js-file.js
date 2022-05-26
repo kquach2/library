@@ -17,7 +17,7 @@ function addBookToLibrary(book) {
 }
 
 function displayBooks() {
-    const bookGrid = document.querySelector('#bookGrid');
+    const bookGrid = document.querySelector('.book-grid');
     for (let i = 0; i < myLibrary.length; i++) {
         const container = document.createElement('div');
         const title = document.createElement('p');
@@ -65,7 +65,7 @@ toggles.forEach((toggle) => {
 const remove = document.querySelector('.remove-button');
 remove.addEventListener('click', () => {
     myLibrary.splice(parseInt(remove.parentElement.dataset.index), 1);     
-    const books = document.querySelectorAll('#bookGrid > div');
+    const books = document.querySelectorAll('.book-grid > div');
     for (let i = 0; i < books.length; i++) { 
         if (parseInt(books[i].dataset.index) > parseInt(remove.parentElement.dataset.index)) { 
             books[i].dataset.index = parseInt(books[i].dataset.index)-1;
@@ -77,7 +77,7 @@ remove.addEventListener('click', () => {
 const newBookButton = document.querySelector('#new-book-button');
 newBookButton.addEventListener('click', () => {
     const form = document.querySelector('form');
-    form.toggle('active');
+    form.classList.toggle('active');
 })
 
 // when user clicks submit, book should be added to library array
