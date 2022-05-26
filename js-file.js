@@ -18,6 +18,9 @@ function addBookToLibrary(book) {
 
 function displayBooks() {
     const bookGrid = document.querySelector('.book-grid');
+    while (bookGrid.firstChild) {
+        bookGrid.removeChild(bookGrid.firstChild);
+    }
     for (let i = 0; i < myLibrary.length; i++) {
         const container = document.createElement('div');
         const title = document.createElement('p');
@@ -28,7 +31,7 @@ function displayBooks() {
         title.textContent = "" + myLibrary[i].title + "";
         author.textContent = myLibrary[i].author;
         pages.textContent = myLibrary[i].pages + " pages";
-        read.classList.add('read-toggle');
+        readToggle.classList.add('read-toggle');
         if (myLibrary[i].read) {
             readToggle.classList.add('read');
             readToggle.textContent = 'Read';
@@ -36,6 +39,7 @@ function displayBooks() {
         else {
             readToggle.textContent = 'Unread';
         }
+        
         remove.textContent = 'Remove';
         remove.classList.add('remove-button');
 
@@ -46,49 +50,52 @@ function displayBooks() {
         container.appendChild(remove);
         bookGrid.appendChild(container);
         container.dataset.index = i;
+
     }
+    const toggleButtons = document.querySelectorAll('.read-toggle');
+    toggleButtons.forEach((toggleButton) => {
+        toggleButton.addEventListener('click', () => {
+            toggleButton.classList.toggle('read');
+            if(toggleButton.textContent == 'Read') {
+                console.log(toggleButton.textContent);
+                toggleButton.textContent = 'Unread';
+            }
+            else toggleButton.textContent = 'Read';
+            // update the read status of the book that this toggle belongs to in the myLibrary array
+            myLibrary[parseInt(toggleButton.parentElement.dataset.index)].toggleReadStatus;
+        });
+    });
+    
+    const removeButtons = document.querySelectorAll('.remove-button');
+    removeButtons.forEach((removeButton) => {
+        removeButton.addEventListener('click', () => {
+            myLibrary.splice(parseInt(removeButton.parentElement.dataset.index), 1);     
+            const books = document.querySelectorAll('.book-grid > div');
+            for (let i = 0; i < books.length; i++) { 
+                if (parseInt(books[i].dataset.index) > parseInt(removeButton.parentElement.dataset.index)) { 
+                    books[i].dataset.index = parseInt(books[i].dataset.index)-1;
+                }
+            }              
+            removeButton.parentElement.remove();        // remove the book from the library display
+        });
+    });
 }
-
-const toggles = document.querySelectorAll('.read-toggle');
-toggles.forEach((toggle) => {
-    toggle.addEventListener('click', () => {
-        toggle.toggle('read');
-        if(toggle.textContent = 'Read') {
-            toggle.textContent = 'Unread';
-        }
-        else toggle.textContent = 'Read';
-        // update the read status of the book that this toggle belongs to in the myLibrary array
-        myLibrary[parseInt(toggle.parentElement.dataset.index)].toggleReadStatus;
-    })
-});
-
-const remove = document.querySelector('.remove-button');
-remove.addEventListener('click', () => {
-    myLibrary.splice(parseInt(remove.parentElement.dataset.index), 1);     
-    const books = document.querySelectorAll('.book-grid > div');
-    for (let i = 0; i < books.length; i++) { 
-        if (parseInt(books[i].dataset.index) > parseInt(remove.parentElement.dataset.index)) { 
-            books[i].dataset.index = parseInt(books[i].dataset.index)-1;
-        }
-    }              
-    remove.parentElement.remove();        // remove the book from the library display
-})
 
 const newBookButton = document.querySelector('#new-book-button');
 newBookButton.addEventListener('click', () => {
     const form = document.querySelector('form');
     form.classList.toggle('active');
-})
+});
 
 // when user clicks submit, book should be added to library array
 const form = document.querySelector('form');
-
 form.addEventListener('submit', () => {
-    const title = document.querySelector('form').elements[0];
-    const author = document.querySelector('form').elements[1];
-    const pages = document.querySelector('form').elements[2];
-    const read = document.querySelector('form').elements[3];
-    addBookToLibrary(new Book(title, author, pages, read));
-    form.toggle('active');    //hide form
+    const title = form.title.value;
+    const author = form.author.value;
+    const pages = form.pages.value;
+    const read = form.read.checked;
+    const book = new Book(title, author, pages, read);
+    addBookToLibrary(book);
+    form.classList.toggle('active');    //hide form
     displayBooks();
-})
+});

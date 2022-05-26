@@ -16,17 +16,18 @@
         <div class="midsection">
             <button type="button" id="new-book-button">+ Add Book</button>
             <div class="book-grid"></div> 
+            <form onsubmit="return false">
+                <h3>Add a new book</h3>
+                <input id="title" name="title" type="text" placeholder="Title" required>
+                <input id="author" name="author" type="text" placeholder="Author" required>
+                <input id="pages" name="pages" type="number" placeholder="Pages" required>
+                <div id="haveRead">
+                    <label for="read">Have you read this book?</label>
+                    <input id="read" name="read" type="checkbox">
+                </div>
+                <button type="submit">Submit</button>
+            </form>
         </div>
-        <form>
-            <input id="title" name="title" type="text" placeholder="Title" required>
-            <input id="author" name="author" type="text" placeholder="Author" required>
-            <input id="pages" name="pages" type="number" placeholder="Pages" required>
-            <div id="haveRead">
-                <label for="read">Have you read this book?</label>
-                <input id="read" name="read" type="checkbox">
-            </div>
-            <button type="submit">Submit</button>
-        </form>
     </div>
     
     
