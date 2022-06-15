@@ -1,19 +1,18 @@
 let myLibrary = [];
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
-
-Book.prototype.toggleReadStatus = function() {
-    this.read = !this.read 
-}
-
-function addBookToLibrary(book) {
-    myLibrary.push(book);
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+    toggleReadStatus() {
+        this.read = !this.read;
+    }
+    addBookToLibrary() {
+        myLibrary.push(this);
+    }
 }
 
 function displayBooks() {
@@ -57,7 +56,6 @@ function displayBooks() {
         toggleButton.addEventListener('click', () => {
             toggleButton.classList.toggle('read');
             if(toggleButton.textContent == 'Read') {
-                console.log(toggleButton.textContent);
                 toggleButton.textContent = 'Unread';
             }
             else toggleButton.textContent = 'Read';
@@ -92,7 +90,7 @@ form.addEventListener('submit', () => {
     const pages = form.pages.value;
     const read = form.read.checked;
     const book = new Book(title, author, pages, read);
-    addBookToLibrary(book);
+    book.addBookToLibrary();
     form.classList.toggle('active');    //hide form
     displayBooks();
     off();
