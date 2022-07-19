@@ -101,6 +101,8 @@ form.addEventListener('click', (event) => {
 });
 
 function on() {
+    const form = document.querySelector('form');
+    form.reset();
     document.getElementById("overlay").style.display = "block";
 }
 
@@ -110,4 +112,37 @@ function off() {
 
 const overlay = document.querySelector('#overlay');
 overlay.addEventListener('click', off);
+
+const titleInput = document.querySelector('#title');
+
+titleInput.addEventListener('input', () => {
+    titleInput.setCustomValidity('');
+    titleInput.checkValidity();
+});
+
+titleInput.addEventListener('invalid', () => {
+    titleInput.setCustomValidity('Enter the title of the book!');
+});
+
+const authorInput = document.querySelector('#author');
+
+authorInput.addEventListener('input', () => {
+    authorInput.setCustomValidity('');
+    authorInput.checkValidity();
+});
+
+authorInput.addEventListener('invalid', () => {
+    authorInput.setCustomValidity('Enter the author of the book!');
+});
+
+const pagesInput = document.querySelector('#pages');
+
+pagesInput.addEventListener('input', () => {
+    pagesInput.setCustomValidity('');
+    pagesInput.checkValidity();
+});
+
+pagesInput.addEventListener('invalid', () => {
+    pagesInput.setCustomValidity('Enter the number of pages in the book!');
+});
 
